@@ -1,0 +1,62 @@
+<div data-hook="admin_product_form_fields">
+
+  <div class="row">
+
+    <div class="col-md-8" data-hook="admin_product_form_left">
+      <div data-hook="admin_product_form_name">
+        <%= f.field_container :name, class: ['form-group'] do %>
+          <%= f.label :name, raw(Spree.t(:name) + content_tag(:span, ' *', class: 'required')) %>
+          <%= f.text_field :name, class: 'form-control title' %>
+          <%= f.error_message_on :name %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_product_form_description">
+        <%= f.field_container :description, class: ['form-group'] do %>
+          <%= f.label :description, Spree.t(:description) %>
+          <%= f.text_area :description, { rows: "#{unless @product.has_variants? then '5' else '5' end}", class: 'form-control' } %>
+          <%= f.error_message_on :description %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_product_form_cooking_instruction">
+        <%= f.field_container :dish_cooking_intruction, class: ['form-group'] do %>
+          <%= f.label :dish_cooking_intruction, Spree.t(:cooking_intruction) %>
+          <%= f.text_area :dish_cooking_intruction, { rows: 20, class: 'form-control' } %>
+          <%= f.error_message_on :dish_cooking_intruction %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-hook="admin_product_form_right">
+
+      
+      <div data-hook="admin_product_form_cost_price" class="alpha two columns">
+        <%= f.field_container :cost_price, class: ['form-group'] do %>
+          <%= f.label :cost_price, Spree.t(:master_price) %>
+          <%= f.text_field :cost_price, value: number_to_currency(@product.cost_price, unit: ''), class: 'form-control' %>
+          <%= f.error_message_on :cost_price %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_product_form_cost_currency" class="omega two columns">
+        <%= f.field_container :cost_currency, class: ['form-group'] do %>
+          <%= f.label :cost_currency, Spree.t(:currency) %>
+          <%= f.text_field :cost_currency, class: 'form-control' %>
+          <%= f.error_message_on :cost_currency %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_product_form_available_on">
+        <%= f.field_container :available_on, class: ['form-group'] do %>
+          <%= f.label :available_on, Spree.t(:available_on) %>
+          <%= f.error_message_on :available_on %>
+          <%= f.text_field :available_on, value: datepicker_field_value(@product.available_on), class: 'datepicker form-control' %>
+        <% end %>
+      </div>
+
+    </div>
+
+  </div><!--- end row-->
+
+</div> <!--- end admin_product_form_fields-->

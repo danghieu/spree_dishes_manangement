@@ -1,0 +1,16 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:dish_types_list), admin_dish_types_url %>
+  / <%=@dish_type.name %>
+<% end 
+%>
+
+<%= form_for @dish_type, method: :put, :url => admin_dish_type_url(@dish_type), :html => {:id => "edit_dish_type", :multipart => true} do |f| %>
+	<fieldset data-hook="edit_dish_type">
+		<%= render :partial => 'form', :locals => { :f => f } %>
+		<div class="form-buttons filter-actions actions" data-hook="buttons">
+	        <%= button Spree.t('actions.update'), 'ok' %>
+	        <span class="or"><%= Spree.t(:or) %></span>
+	        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_dish_type_url, :class => 'button' %>
+	    </div>
+    </fieldset>
+<% end %>

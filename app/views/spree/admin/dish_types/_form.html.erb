@@ -1,0 +1,5 @@
+<div data-hook="admin_dish_type_form">
+    <%= f.label :name, Spree.t(:dish_type_name)%>
+    <%= f.text_field :name, name: "dish_type[name]"%>
+    <%= f.error_message_on :name %>
+</div>

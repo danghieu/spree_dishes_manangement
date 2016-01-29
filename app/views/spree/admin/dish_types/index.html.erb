@@ -1,0 +1,34 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:dish_types) %>
+<% end %>
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_dish_type), new_admin_dish_type_url, { :class => "btn-success", :icon => 'plus', :id => 'admin_new_dish_type' } %>
+<% end if can?(:create, Dish::DishType) %>
+<%= form_tag destroy_multiple_admin_dish_types_url, method: :delete do %>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger'} %></th>
+      <th class="col-md-6"><%= Spree.t(:name) %></th>
+      <th class="col-md-4">Tools</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dish_types.each do |dish_type| %>
+      <tr>
+        <td ><%= check_box_tag "dish_types[]", dish_type.id %></td>
+        <td ><%= dish_type.name %></td>
+        <td class="actions" data-hook="admin_products_index_row_actions">
+            <%= link_to_edit dish_type, :no_text => true, :class => 'edit' if can?(:edit, dish_type) %>
+            &nbsp;
+            <%= link_to_delete dish_type, :no_text => true if can?(:delete, dish_type) %>
+          </tds>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
+<br>
+

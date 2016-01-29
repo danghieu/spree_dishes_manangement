@@ -1,0 +1,39 @@
+require "rails_helper"
+
+RSpec.describe DishTypesController, type: :routing do
+  describe "routing" do
+
+    it "routes to #index" do
+      expect(:get => "/dish_types").to route_to("dish_types#index")
+    end
+
+    it "routes to #new" do
+      expect(:get => "/dish_types/new").to route_to("dish_types#new")
+    end
+
+    it "routes to #show" do
+      expect(:get => "/dish_types/1").to route_to("dish_types#show", :id => "1")
+    end
+
+    it "routes to #edit" do
+      expect(:get => "/dish_types/1/edit").to route_to("dish_types#edit", :id => "1")
+    end
+
+    it "routes to #create" do
+      expect(:post => "/dish_types").to route_to("dish_types#create")
+    end
+
+    it "routes to #update via PUT" do
+      expect(:put => "/dish_types/1").to route_to("dish_types#update", :id => "1")
+    end
+
+    it "routes to #update via PATCH" do
+      expect(:patch => "/dish_types/1").to route_to("dish_types#update", :id => "1")
+    end
+
+    it "routes to #destroy" do
+      expect(:delete => "/dish_types/1").to route_to("dish_types#destroy", :id => "1")
+    end
+
+  end
+end
