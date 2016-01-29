@@ -47,6 +47,14 @@
         <% end %>
       </div>
 
+      <div data-hook="admin_product_form_dish_types">
+      <%= f.field_container :dish_type do %>
+        <%= f.label :dish_type_id, Spree.t(:dish_types) %>
+        <%= f.collection_select(:dish_type_id, @dish_types, :id, :name, { :include_blank => false }, { :class => 'select2' }) %>
+        <%= f.error_message_on :dish_type %>
+      <% end %>
+    </div>
+
       <div data-hook="admin_product_form_available_on">
         <%= f.field_container :available_on, class: ['form-group'] do %>
           <%= f.label :available_on, Spree.t(:available_on) %>
