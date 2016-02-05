@@ -13,7 +13,7 @@
       <th class="col-md-2">Image</th>
       <th class="col-md-3"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_products_listing_name_title'} %></th>
       <th class="col-md-2"><%= sort_link @search,:dish_type_id, Spree.t(:type), {}, {:title => 'admin_products_listing_type_title'} %></th>
-      <th class="col-md-1"><%= sort_link @search,:cost_price, Spree.t(:master_price), {}, {:title => 'admin_products_listing_price_title'} %></th>
+      <th class="col-md-1"><%= sort_link @search,:cost_price, Spree.t(:price), {}, {:title => 'admin_products_listing_price_title'} %></th>
       <th class="col-md-4">Tools</th>
     </tr>
   </thead>
@@ -32,7 +32,7 @@
             <%= link_to_edit product, :no_text => true, :class => 'edit' if can?(:edit, product) %>
             &nbsp;
             <%= link_to_delete product, :no_text => true if can?(:delete, product) %>
-          </tds>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,28 @@
+
 <div data-hook="admin_dish_type_form">
-    <%= f.label :name, Spree.t(:dish_type_name)%>
-    <%= f.text_field :name, name: "dish_type[name]"%>
-    <%= f.error_message_on :name %>
-</div>
+  <div class="col-md-8" data-hook="admin_dish_type_left">
+    <div class = "col-md-12"  class="" data-hook="admin_dish_type_form_name">
+      <%= f.field_container :name, class: ['form-group'] do %>
+        <%= f.label :name, raw(Spree.t(:dish_type_name) + content_tag(:span, ' *', class: 'required')) %>
+        <%= f.text_field :name,name: "dish_type[name]", class: 'form-control title' %>
+        <%= f.error_message_on :name %>
+      <% end %>
+    </div>
+
+    <div class = "col-md-12" class="" data-hook="admin_dish_type_form_description">
+      <%= f.field_container :description, class: ['form-group'] do %>
+        <%= f.label :description, raw(Spree.t(:description)) %>
+        <%= f.text_area :description,name: "dish_type[description]",rows: 5, class: 'form-control title' %>
+        <%= f.error_message_on :name %>
+      <% end %>
+    </div>
+
+    <div class = "col-md-3" data-hook="admin_dish_type_form_is_active">
+      <%= f.field_container :is_active, class: ['form-group'] do %>
+        <%= f.label :is_active, raw(Spree.t(:is_active)) %>
+        <%= select_tag "dish_type[is_active]",options_for_select([["Yes", true],["No", false]], @is_active),:class => 'select2'%>
+      <% end %>
+    </div>
+  </div>
+
+</div> <!--- end admin_product_form_fields-->

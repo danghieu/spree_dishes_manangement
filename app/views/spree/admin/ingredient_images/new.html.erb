@@ -1,0 +1,19 @@
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @ingredient } %>
+
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:ingredients), admin_ingredients_url %>
+  /  <%= link_to Spree.t(@ingredient.name), admin_ingredient_url(@ingredient) %>/ <%= link_to Spree.t(:image), admin_ingredient_ingredient_images_url(@ingredient) %>/ New
+<% end %>
+
+<%= form_for [ @ingredient, @ingredient_image],url: admin_ingredient_ingredient_images_url(@ingredient), html: { multipart: true } do |f| %>
+  <fieldset data-hook="new_image">
+  
+    <%= render partial: 'form', locals: { f: f } %>
+
+    <div class="form-actions" data-hook="buttons">
+      <%= button Spree.t('actions.update'), 'save' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), spree.admin_ingredient_ingredient_images_url(@ingredient), icon: 'delete', id: 'cancel_link' %>
+    </div>
+  </fieldset>
+<% end %>

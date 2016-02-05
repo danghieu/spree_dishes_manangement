@@ -10,7 +10,8 @@
     <tr>
       <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger'} %></th>
       <th class="col-md-6"><%= Spree.t(:name) %></th>
-      <th class="col-md-4">Tools</th>
+      <th class="col-md-2">Active</th> 
+      <th class="col-md-2">Tools</th>
     </tr>
   </thead>
 
@@ -19,6 +20,16 @@
       <tr>
         <td ><%= check_box_tag "dish_types[]", dish_type.id %></td>
         <td ><%= dish_type.name %></td>
+        <td >
+        <% if dish_type.is_active %>
+            <button id="<%dish_type.id %>" type="button" class="btn btn-success btn-active">True</button>
+        <% else %>
+            <button id="<%dish_type.id %>" type="button" class="btn btn-warning btn-active">False</button>
+        <% end %>
+
+
+
+        </td>
         <td class="actions" data-hook="admin_products_index_row_actions">
             <%= link_to_edit dish_type, :no_text => true, :class => 'edit' if can?(:edit, dish_type) %>
             &nbsp;
@@ -32,3 +43,12 @@
 <% end %>
 <br>
 
+<script type="text/javascript">
+  
+   $(".btn-active").on('click',function(){
+   
+    $.ajax("active", {
+      data: {"id":$(this).attr('id')}
+      
+  });
+</script>

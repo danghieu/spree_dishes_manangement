@@ -1,0 +1,18 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:nutritions), admin_nutritions_url %>
+  / <%=@nutrition.name %>
+<% end 
+%>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @nutrition } %>
+<%= form_for @nutrition, method: :put, :url => admin_nutrition_url(@nutrition), :html => {:id => "edit_nutrition", :multipart => true} do |f| %>
+	<fieldset data-hook="edit_nutrition">
+		<%= render :partial => 'form', :locals => { :f => f } %>
+		<div class="form-buttons filter-actions actions col-md-12" data-hook="buttons">
+	        <%= button Spree.t('actions.update'), 'ok' %>
+	        <span class="or"><%= Spree.t(:or) %></span>
+	        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_nutritions_url, :class => 'button' %>
+	    </div>
+    </fieldset>
+<% end %>
+

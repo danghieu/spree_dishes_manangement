@@ -4,6 +4,7 @@ Spree::Core::Engine.routes.draw do
     		collection do
 		      delete 'destroy_multiple'
 		    end
+		    #active 'active'
 		    resources :products
 		
     	end
@@ -13,6 +14,35 @@ Spree::Core::Engine.routes.draw do
 			end
 		end
 
+		resources :ingredients do
+			resources :ingredient_images
+    		collection do
+			    delete 'destroy_multiple'
+			end
+		end
+
+
+		resources :nutritions do
+    		collection do
+			    delete 'destroy_multiple'
+			end
+		end
+
+		concern :products_ingredient_concern do
+		  resources :products_ingredients
+		end
+
+		resources :products, concerns: :products_ingredient_concern
+		resources :ingredients, concerns: :products_ingredient_concern
+
+		concern :product_nutrition_concern do
+		  resources :products_nutritions
+		end
+
+		resources :products, concerns: :product_nutrition_concern
+		resources :ingredients, concerns: :product_nutrition_concern
+
   	end
+  	post "admin/dish_types/:id/active" => "dish_types_controller#active"
   # Add your extension routes here
 end

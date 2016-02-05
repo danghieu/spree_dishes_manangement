@@ -1,0 +1,21 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:ingredients), admin_ingredients_url %>
+  / New
+<% end 
+%>
+
+<%= form_for @ingredient, url: admin_ingredients_url(@ingredient), method: 'POST', html: { id: "new_ingredient", multipart: true } do |f|%>
+	<fieldset data-hook="new_dish_type">
+		<%= render :partial => 'form', :locals => { :f => f } %>
+		<div class="form-actions" data-hook="buttons">
+		  <%= button Spree.t('actions.create'), 'ok', 'submit', {class: 'btn-success'} %>
+		  <span class="or"><%= Spree.t(:or) %></span>
+		  <%= button_link_to Spree.t('actions.cancel'), admin_ingredients_url, :icon => 'remove' %>
+		</div>
+	</fieldset>
+<% end %>
+
+
+
+
+
