@@ -24,11 +24,13 @@ module Spree
 
       def active
         @dish_type = Dish::DishType.find(params[:id])
-        if dish_type.is_active
-          dish_type.is_active =false
+        if @dish_type.is_active
+          @dish_type.is_active =false
         else
-          dish_type.is_active =true
+          @dish_type.is_active =true
         end
+        @dish_type.save
+        redirect_to  admin_dish_types_url
       end
 
       def destroy_multiple

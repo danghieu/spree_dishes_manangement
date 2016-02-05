@@ -2,7 +2,7 @@
 
 <% content_for :page_title do %>
  <%= link_to Spree.t(:ingredients), admin_ingredients_url %>
-  /  <%= link_to Spree.t(@ingredient.name), admin_ingredient_url(@ingredient) %> /Image
+  / <%=@ingredient.name %>
 <% end %>
 
 <%= render :partial => 'spree/admin/shared/ingredient_tabs', :locals => {:current => :images}%>

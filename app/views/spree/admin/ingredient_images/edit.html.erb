@@ -2,7 +2,7 @@
 
 <% content_for :page_title do %>
   <%= link_to Spree.t(:ingredients), admin_ingredients_url %>
-  /  <%= link_to Spree.t(@ingredient.name), admin_ingredient_url(@ingredient) %>/ <%= link_to Spree.t(:image), admin_ingredient_ingredient_images_url(@ingredient) %>/ Edit
+  /  <%=@ingredient.name %>
 <% end %>
 
 <%= form_for [@ingredient, @ingredient_image], url: admin_ingredient_ingredient_image_url, :html => { :multipart => true } do |f| %>

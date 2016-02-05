@@ -7,7 +7,7 @@
     <div id='ingredients' data-hook>
     <%= f.field_container :ingredient_ids, class: ['form-group'] do %>
       <%= f.label :ingredient_ids, Spree.t(:ingredients) %><br>
-     <%= f.select :ingredient_ids, Dish::Ingredient.all.map { |p| ["(#{p.name})","(#{p.name})", p.id] }, {}, { multiple: true, class: "select2" } %>
+     <%= f.select :ingredient_ids, Dish::Ingredient.all.map { |p| ["#{p.name}","#{p.name}", p.id] }, {}, { multiple: true, class: "select2" } %>
     <% end %>
   </div>
 
@@ -20,3 +20,23 @@
 
   </fieldset>
 <% end %>
+<% if @product.ingredients.any? %>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-2">Image</th> 
+      <th class="col-md-6"><%= Spree.t(:name) %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @product.ingredients.each do |pi| %>
+      <tr>
+        <td ><%=mini_image pi %></td>
+        <td ><%= pi.name %> </td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%end%>

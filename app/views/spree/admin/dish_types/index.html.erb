@@ -22,9 +22,9 @@
         <td ><%= dish_type.name %></td>
         <td >
         <% if dish_type.is_active %>
-            <button id="<%dish_type.id %>" type="button" class="btn btn-success btn-active">True</button>
+            <button id="<%=dish_type.id %>" type="button" class="btn btn-success btn-active">True</button>
         <% else %>
-            <button id="<%dish_type.id %>" type="button" class="btn btn-warning btn-active">False</button>
+            <button id="<%=dish_type.id %>" type="button" class="btn btn-warning btn-active">False</button>
         <% end %>
 
 
@@ -43,12 +43,16 @@
 <% end %>
 <br>
 
+
 <script type="text/javascript">
-  
-   $(".btn-active").on('click',function(){
    
-    $.ajax("active", {
-      data: {"id":$(this).attr('id')}
-      
+  $(".btn-active").click(function() {
+    var id = $(this).attr('id')
+   $.ajax('/admin/dish_types/'+id+'/active', {
+        type: "post",
+        success: function(data){
+          window.location.reload(true);
+        }
+    });
   });
 </script>
