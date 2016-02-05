@@ -86,6 +86,10 @@ module Spree
       def location_after_save
         if params[:create_and_add]
           spree.edit_admin_product_url(@product)
+        elsif params[:update_ingredient]
+          admin_product_products_ingredients_url(@product)
+        elsif params[:update_nutrition]
+          admin_product_products_nutritions_url(@product)
         else
           spree.admin_products_url
     end

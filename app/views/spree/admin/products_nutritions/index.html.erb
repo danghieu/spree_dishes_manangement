@@ -11,7 +11,7 @@
     <% end %>
   </div>
     <div class="form-buttons filter-actions actions" data-hook="buttons">
-        <%= button Spree.t('actions.update'), 'ok' %>
+        <%= submit_tag 'Update', name: 'update_nutrition', :class => "btn  btn-success" %>
         <span class="or"><%= Spree.t(:or) %></span>
         <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_products_url, :class => 'button' %>
   </div>
