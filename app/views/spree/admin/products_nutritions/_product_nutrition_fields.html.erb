@@ -1,0 +1,18 @@
+<tr class="product_nutrition_fields" id="" data-hook="product_nutrition">
+
+  <td class='nutrition_name'>
+    <%= f.fields_for :nutrition do |n| %>
+      <%= n.text_field :name,:readonly => true %>
+    <% end %>
+  </td>
+ 
+  <td class='value'>
+    <%= f.text_field :quantity, type: "number", :step => "any" %>
+  </td>
+
+  <td class='value'>
+    <%= f.collection_select(:unit, @units, :to_s, :to_s, { :include_blank => false }, { :class => 'select2 fullwidth', :required => false}) %>
+  </td>
+
+</tr>
+

@@ -64,6 +64,21 @@
         <% end %>
       </div>
 
+      <div id='ingredients' data-hook>
+        <%= f.field_container :ingredient_ids, class: ['form-group'] do %>
+          <%= f.label :ingredient_ids, Spree.t(:ingredients) %><br>
+          <%= f.select :ingredient_ids, Dish::Nutrition.all.map { |p| ["(#{p.name})","(#{p.name})", p.id] }, {}, { multiple: true, class: "select2" } %>
+        <% end %>
+      </div>
+
+       <div id='nutritions' data-hook>
+        <%= f.field_container :nutrition_ids, class: ['form-group'] do %>
+          <%= f.label :nutrition_ids, Spree.t(:nutrition) %><br>
+          <%= f.select :nutrition_ids, Dish::Nutrition.all.map { |p| ["(#{p.name})","(#{p.name})", p.id] }, {}, { multiple: true, class: "select2" } %>
+        <% end %>
+      </div>
+ 
+
 
     </div><!---end div right -->
 

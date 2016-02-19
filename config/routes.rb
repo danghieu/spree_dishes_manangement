@@ -1,4 +1,5 @@
 Spree::Core::Engine.routes.draw do
+  
 	namespace :admin do
     	resources :dish_types do
     		collection do
@@ -15,8 +16,9 @@ Spree::Core::Engine.routes.draw do
     		collection do
 			    delete 'destroy_multiple'
 			end
+			resources :available_ons
 		end
-
+		resources :available_ons
 		resources :ingredients do
 			resources :ingredient_images
     		collection do
@@ -46,5 +48,6 @@ Spree::Core::Engine.routes.draw do
 		resources :ingredients, concerns: :product_nutrition_concern
 
   	end
+  	get "/api/products_serve_date" => "api/products#serve_date"
   # Add your extension routes here
 end

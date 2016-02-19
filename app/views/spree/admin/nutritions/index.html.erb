@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-  <%= Spree.t(:nutritions) %>
+  <%= Spree.t(:nutrition) %>
 <% end %>
 <% content_for :page_actions do %>
   <%= button_link_to Spree.t(:new_nutrition), new_admin_nutrition_url, { :class => "btn-success", :icon => 'plus', :id => 'admin_new_nutition' } %>
@@ -9,7 +9,8 @@
   <thead>
     <tr>
       <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger'} %></th>
-      <th class="col-md-6"><%= Spree.t(:name) %></th>
+      <th class="col-md-3"><%= Spree.t(:name) %></th>
+      <th class="col-md-5"><%= Spree.t(:description) %></th>
       <th class="col-md-2">Tools</th>
     </tr>
   </thead>
@@ -17,12 +18,26 @@
   <tbody>
     <% @nutritions.each do |nutrition| %>
       <tr>
-        <td ><%= check_box_tag "nutritions[]", nutrition.id %></td>
+        <td >
+          <%if nutrition.can_be_deleted? %>
+            <%= check_box_tag "nutritions[]", nutrition.id %>
+          <%else %>
+            <%= check_box_tag "nutritions[]", nutrition.id, false, disabled: true %></td>
+          <%end %>
+        </td>
         <td ><%= nutrition.name %></td>
+        <td ><%= truncate(nutrition.description, escape: false){ link_to "more",  edit_admin_nutrition_url(nutrition)} %></td>
         <td class="actions" data-hook="admin_products_index_row_actions">
             <%= link_to_edit nutrition, :no_text => true, :class => 'edit' if can?(:edit, nutrition) %>
             &nbsp;
+            <%if nutrition.can_be_deleted? %>
             <%= link_to_delete nutrition, :no_text => true if can?(:delete, nutrition) %>
+            <%else %>
+
+            <a class="btn btn-danger btn-sm icon-link with-tip btn-delete-nutrition">
+              <span class="icon icon-delete"></span> 
+            </a>
+            <%end %>
           </tds>
       </tr>
     <% end %>
@@ -30,3 +45,10 @@
 </table>
 
 <% end %>
+
+<script type="text/javascript">
+   
+  $(".btn-delete-nutrition").click(function() {
+    alert("Can not delete this Nutrition!");
+  });
+</script>

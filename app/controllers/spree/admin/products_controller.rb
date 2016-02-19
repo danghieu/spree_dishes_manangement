@@ -51,10 +51,12 @@ module Spree
           format.js  { render_js_for_destroy }
         end
       end
+
       def destroy_multiple
         Spree::Product.destroy(params[:products])  
         redirect_to action: :index   
       end
+
       def clone
         @new = @product.duplicate
 

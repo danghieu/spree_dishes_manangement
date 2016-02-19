@@ -10,29 +10,51 @@
     <tr>
       <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger'} %></th>
       <th>Image</th>
-      <th class="col-md-6"><%= Spree.t(:name) %></th>
+      <th class="col-md-4"><%= Spree.t(:name) %></th>
+      <th class="col-md-4"><%= Spree.t(:description) %></th>
       <th class="col-md-2">Tools</th>
     </tr>
   </thead>
 
   <tbody>
     <% @ingredients.each do |ingredient| %>
+      <%= ingredient.errors.get(:base) %>
       <tr>
-        <td ><%= check_box_tag "ingredients[]", ingredient.id %></td>
+        <td >
+          <%if ingredient.can_be_deleted? %>
+          <%= check_box_tag "ingredients[]", ingredient.id %></td>
+          <%else %>
+          <%= check_box_tag "ingredients[]", ingredient.id, false, disabled: true %></td>
+          <%end %>
         <% if ingredient.images.any? %>
           <td class="align-center"><%= image_tag ingredient.images.first.attachment.url(:mini) %></td>
         <% else %>
           <td class="align-center"></td>
         <% end %>
         <td ><%= ingredient.name %></td>
+        <td ><%= truncate(ingredient.description, escape: false){ link_to "more",  edit_admin_ingredient_url(ingredient)}%></td>
         <td class="actions" data-hook="admin_products_index_row_actions">
             <%= link_to_edit ingredient, :no_text => true, :class => 'edit' if can?(:edit, ingredient) %>
             &nbsp;
-            <%= link_to_delete ingredient, :no_text => true if can?(:delete, ingredient) %>
-          </tds>
+            <%if ingredient.can_be_deleted? %>
+            <%= link_to_delete ingredient, :no_text => true, :class => 'delete' if can?(:delete, ingredient) %>
+            <%else %>
+
+            <a class="btn btn-danger btn-sm icon-link with-tip btn-delete-ingredient">
+              <span class="icon icon-delete"></span> 
+            </a>
+            <%end %>
+          </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <% end %>
+
+<script type="text/javascript">
+   
+  $(".btn-delete-ingredient").click(function() {
+    alert("Can not delete this Ingredient!");
+  });
+</script>

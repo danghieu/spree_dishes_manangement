@@ -118,6 +118,11 @@ module Spree
              :allow_destroy => true
     accepts_nested_attributes_for :nutritions
 
+    has_many :available_ons, :class_name => "Dish::AvailableOn"
+    accepts_nested_attributes_for :available_ons,
+             :reject_if => :all_blank,
+             :allow_destroy => true
+
     alias :options :product_option_types
 
     self.whitelisted_ransackable_associations = %w[stores variants_including_master master variants]
