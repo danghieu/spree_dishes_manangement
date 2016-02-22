@@ -1,0 +1,145 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:AvailableOn) %>
+<% end %>
+<div id="wrap_week_action">
+    <button id="left-button" class="col-md-1 btn-action btn btn-primary">
+      <i class="icon icon-chevron-left"></i>
+    </button>
+  <div class="center-bar col-md-8  ">
+    <span>This Week</span>
+    <p class="dayofweek"></p>
+  </div>
+  <button id="right-button" class=" btn-action  btn btn-primary">
+      <i class="icon icon-chevron-right"></i>
+    </button>
+</div>
+
+<div style="clear:both"></div>
+
+<div id="container">
+  <div class="whole">
+    <div class="type sunday">
+      <p>Sunday</p>
+    </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+          <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+ 
+  </div><!-- end whole -->
+  <div class="whole">
+    <div class="type monday">
+      <p>Monday</p>
+      </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+         <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!-- end whole -->
+
+  <div class="whole">
+    <div class="type tuesday">
+      <p>Tuesday</p>
+      </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+          <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!-- end whole -->
+
+  <div class="whole">
+    <div class="type wenesday">
+      <p>Wenesday</p>
+      </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+         <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!-- end whole -->
+  <div class="whole">
+    <div class="type thursday">
+      <p>Thursday</p>
+      </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+        <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!-- end whole -->
+  <div class="whole">
+    <div class="type friday">
+      <p>Friday</p>
+      </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+          <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!-- end whole -->
+  <div class="whole">
+    <div class="type saturday">
+      <p>Saturday</p>
+      </div>
+    <div class="plan">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+          <div class="header">
+              <div class="product_delete"><a class="a-product-delete"><span class="icon icon-delete"></span></a></div>
+             <p class="product_name"><%=product.dish_type.name%></p>
+            <div class="image"><%= product_image product %></div>
+            <p class="product_name"><%=product.name%></p>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!-- end whole -->
+  
+
+
+</div>
