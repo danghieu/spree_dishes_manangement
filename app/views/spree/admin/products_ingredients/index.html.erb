@@ -32,7 +32,11 @@
   <tbody>
     <% @product.ingredients.each do |pi| %>
       <tr>
-        <td ><%=mini_image pi %></td>
+        <td >
+        <%if pi.images.any?%>
+          <%=mini_image pi %>
+        <%end%>
+        </td>
         <td ><%= pi.name %> </td> 
       </tr>
     <% end %>

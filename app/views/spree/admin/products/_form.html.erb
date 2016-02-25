@@ -67,7 +67,7 @@
       <div id='ingredients' data-hook>
         <%= f.field_container :ingredient_ids, class: ['form-group'] do %>
           <%= f.label :ingredient_ids, Spree.t(:ingredients) %><br>
-          <%= f.select :ingredient_ids, Dish::Nutrition.all.map { |p| ["(#{p.name})","(#{p.name})", p.id] }, {}, { multiple: true, class: "select2" } %>
+          <%= f.select :ingredient_ids, Dish::Ingredient.all.map { |p| ["(#{p.name})","(#{p.name})", p.id] }, {}, { multiple: true, class: "select2" } %>
         <% end %>
       </div>
 

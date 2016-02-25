@@ -20,6 +20,7 @@ module Spree
       
       def destroy_multiple
         Dish::Ingredient.destroy(params[:ingredients])
+        flash[:success] = "Deleted Successfully"
         redirect_to action: :index 
       end
 

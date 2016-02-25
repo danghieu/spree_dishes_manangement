@@ -118,6 +118,16 @@ module Spree
              :allow_destroy => true
     accepts_nested_attributes_for :nutritions
 
+    has_many :comments, :class_name => "Dish::Comment"
+    has_many :users,
+             :through => :comments
+
+    accepts_nested_attributes_for :comments,
+             :reject_if => :all_blank,
+             :allow_destroy => true
+    accepts_nested_attributes_for :users
+
+
     has_many :available_ons, :class_name => "Dish::AvailableOn"
     accepts_nested_attributes_for :available_ons,
              :reject_if => :all_blank,

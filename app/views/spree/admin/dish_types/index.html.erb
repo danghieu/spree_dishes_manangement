@@ -4,27 +4,31 @@
 <% content_for :page_actions do %>
   <%= button_link_to Spree.t(:new_dish_type), new_admin_dish_type_url, { :class => "btn-success", :icon => 'plus', :id => 'admin_new_dish_type' } %>
 <% end if can?(:create, Dish::DishType) %>
+
+<%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %> 
 <%= form_tag destroy_multiple_admin_dish_types_url, method: :delete do %>
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger'} %></th>
-      <th class="col-md-6"><%= Spree.t(:name) %></th>
-      <th class="col-md-2">Active</th> 
+      <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger btn-delete',data: { confirm: "Are you sure?" } } %></th>
+      <th class="col-md-3"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_dish_types_listing_name_title'} %></th>
+      <th class="col-md-4"><%= Spree.t(:description) %></th>
+      <th class="col-md-1">Active</th> 
       <th class="col-md-2">Tools</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @dish_types.each do |dish_type| %>
+    <% @collection.each do |dish_type| %>
       <tr>
         <td ><%= check_box_tag "dish_types[]", dish_type.id %></td>
-        <td ><%= dish_type.name %></td>
+        <td><%= link_to dish_type.try(:name), edit_admin_dish_type_path(dish_type) %></td>
+        <td ><%= truncate(dish_type.description, escape: false){ link_to " more",  edit_admin_dish_type_url(dish_type)}%></td>
         <td >
         <% if dish_type.is_active %>
-            <button id="<%=dish_type.id %>" type="button" class="btn btn-success btn-active">True</button>
+            <button id="<%=dish_type.id %>" type="button" class="btn btn-large btn-block btn-success btn-active">True</button>
         <% else %>
-            <button id="<%=dish_type.id %>" type="button" class="btn btn-warning btn-active">False</button>
+            <button id="<%=dish_type.id %>" type="button" class="btn btn-large btn-block btn-warning btn-active">False</button>
         <% end %>
 
 
@@ -42,7 +46,7 @@
 
 <% end %>
 <br>
-
+<%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %> 
 
 <script type="text/javascript">
    
