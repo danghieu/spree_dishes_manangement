@@ -1,6 +1,6 @@
 // Placeholder manifest file.
 // the installer will append this file to the app vendored assets here: vendor/assets/javascripts/spree/backend/all.js'
-
+  var week=0;
 $(document).ready(function () {
   'use strict';
   $( document ).ajaxStart(function() {
@@ -8,13 +8,9 @@ $(document).ready(function () {
     $(".btn-next").prop('disabled', true);
   });
   $( document ).ajaxStop(function() {
-    $(".btn-pre").prop('disabled', false);
-    $(".btn-next").prop('disabled', false);
+    checkWeek(week);
   });
-  var thisWeek=0;
-  var nextWeek=1;
-  var preWeek=-1;
-  var week=0;
+
   if ($('#wrap_week_action').length>0){
     updateAvailableOnPage(week);
 
@@ -29,17 +25,19 @@ $(document).ready(function () {
     $("body").on('click', '.btn-next', function()
     {
       week++;
-      checWeek(week);
+      checkWeek(week);
       $("#container-available-on").empty();
       updateAvailableOnPage(week);
+      
     });
 
     $("body").on('click', '.btn-pre', function()
     {
       week--;
-      checWeek(week); 
+      checkWeek(week); 
       $("#container-available-on").empty();
       updateAvailableOnPage(week);
+      
     });
 
 
@@ -48,7 +46,7 @@ $(document).ready(function () {
  	
 });
 
-function checWeek(week){
+function checkWeek(week){
   if(week==1){
     $(".center-bar-text").text("Next Week");
     $(".btn-next").prop('disabled', true);
@@ -163,11 +161,17 @@ function LoadDishes(serve_date,index)
       $.each(result.products, function(idx,dish) {
         var divname = ".date_"+index;
         var dish_name = dish.name.substring(0, 10);
+        var dish_image ;
+var dish_image ;
+          if(dish.images[0]!=null)
+          dish_image=dish.images[0].product_url;
+          else dish_image="/assets/noimage/large.png";
+
         $(divname).append(
           "<div class='header' data-id="+dish.id+" data-date="+date+">\
               <div class='product_delete'><a class='a-product-delete' data-id="+dish.id+" data-date="+date+"><span class='icon icon-delete'></span></a></div>\
              <p class='product_name'>" +dish.dish_type + "</p>\
-            <div class='image'> <img src='"+ dish.images[0].product_url +"'</div>\
+            <div class='image'> <img src='"+ dish_image +"'</div>\
             <p class='product_name'>"+dish.name+"</p>\
           </div>"
         );

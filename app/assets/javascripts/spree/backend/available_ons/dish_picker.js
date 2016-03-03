@@ -56,13 +56,16 @@ function addDish(product_id,delivery_date,index) {
     {
     	console.log(data_result.products);
     	dish = data_result.products
-     
+        var dish_image ;
+          if(dish.images[0]!=null)
+          dish_image=dish.images[0].product_url;
+          else dish_image="/assets/noimage/large.png";
         var name = ".date_"+index;
         $(name).append(
           "<div class='header' data-id="+dish.id+" data-date="+delivery_date+">\
               <div class='product_delete'><a class='a-product-delete' data-id="+dish.id+" data-date="+delivery_date+"><span class='icon icon-delete'></span></a></div>\
              <p class='product_name'>" +dish.dish_type + "</p>\
-            <div class='image'> <img src='"+ dish.images[0].product_url +"'</div>\
+            <div class='image'> <img src='"+ dish_image +"'</div>\
             <p class='product_name'>"+dish.name+"</p>\
           </div>"
         );
@@ -98,10 +101,15 @@ function updateSearchList(q,index) {
       if(result==null)
         $("#search-result-"+index).html(html);
       else{
+
       	var html ="<table class='table table-hover table-striped table-search'>";
 				$.each(result.products, function(idx,dish) {
+          var dish_image ;
+          if(dish.images[0]!=null)
+          dish_image=dish.images[0].product_url;
+          else dish_image="/assets/noimage/large.png";
         html += "<tr class='product-select' data-id='"+dish.id+"'>\
-                  <td class ='product-image'><img src='"+ dish.images[0].product_url +"'></td>\
+                  <td class ='product-image'><img src='"+ dish_image +"'></td>\
                   <td class ='product-image'>"+dish.name+"</td>\
                 </tr>";
       	});
