@@ -23,12 +23,12 @@
 #right-button{margin-left: 90px;}
 .date-serve{border: 3px solid rgba(197, 40, 181, 0.45); }
 .dayofweek{font-size: 14px}
-#container sup{
+#container-available-on sup{
 
 	font-size: 40px;
 }
 
-#container ul{
+#container-available-on ul{
 	list-style: none;
 	font-size: 15px;
 	font-family:'Open Sans';
@@ -40,7 +40,7 @@
 }
 
 
-#container li{
+#container-available-on li{
 border-bottom: 1px solid #494a5a;
 padding: 0px;
 margin: 0px;
@@ -50,7 +50,7 @@ line-height: 52px;
 }
 
 
-#container{
+#container-available-on{
 	width: 100%;
 }
 
@@ -78,13 +78,13 @@ line-height: 52px;
 	text-align: center;
 	padding-top: 10px;
 }
-.sunday{	background-color: #eac80d;	border-bottom: 3px solid #bfa30c;}
-.monday{		background-color: #1abc9c;border-bottom: 3px solid #18937b;}
-.tuesday {background-color: #5d6a9a;border-bottom: 3px solid #474f6f;}
-.wenesday {background-color: #FF98C8;border-bottom: 3px solid rgba(197, 40, 181, 0.45);}
-.thursday {background-color: #7DB942;border-bottom: 3px solid rgba(52, 64, 41, 0.41);}
-.friday {background-color: rgba(169, 68, 66, 0.85);border-bottom: 3px solid rgb(181, 120, 94);}
-.saturday {background-color: #f55753;border-bottom: 3px solid rgb(245, 117, 83);}
+.day_0{	background-color: #eac80d;	border-bottom: 3px solid #bfa30c;}
+.day_1{		background-color: #1abc9c;border-bottom: 3px solid #18937b;}
+.day_2 {background-color: #5d6a9a;border-bottom: 3px solid #474f6f;}
+.day_3 {background-color: #FF98C8;border-bottom: 3px solid rgba(197, 40, 181, 0.45);}
+.day_4 {background-color: #7DB942;border-bottom: 3px solid rgba(52, 64, 41, 0.41);}
+.day_5 {background-color: rgba(169, 68, 66, 0.85);border-bottom: 3px solid rgb(181, 120, 94);}
+.day_6 {background-color: #f55753;border-bottom: 3px solid rgb(245, 117, 83);}
 
 .plan{
 	background-color: rgba(85, 85, 85, 0.12);
@@ -97,29 +97,43 @@ line-height: 52px;
 
 
 }
-#container .image img{width: 130px;height: 100px}
+.product-image img {width: 40px;height: 40px}
 
+#container-available-on .header .image img{width: 130px;height: 100px}
+.search-result {
+	max-height: 200px;
+    padding: 0 0 0 4px;
+    margin: 4px 4px 4px 0;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
-#container .header{
+.table-search :hover{cursor: pointer;}
+
+#container-available-on .header{
 	border: 3px solid #494a5a;
 	height: 170px;
 	margin-bottom: 10px;
+	overflow-x: hidden;
+	overflow-y: hidden;
   background-color: rgba(128, 128, 128, 0.35);
 }
-#container .header span{
+#container-available-on .header span{
 	font-size: 32px;
 }
 
-#container .plan :hover{background-color: #D6FFAB}
+#container-available-on .plan :hover{background-color: #D6FFAB}
 
-#container .product_delete {display: none;width: 10px;
+#container-available-on .product_delete {display: none;width: 10px;
     position: absolute;
     text-align: right;}
-#container .product_delete span {font-size: 20px;}
-#container .product_delete a {color:rgba(245, 87, 83, 0.82)}
-#container .product_delete a:hover{color:rgb(255, 0, 0);}
-#container .plan :hover .product_delete{display: block;}
-#container .icon {width: 10px}
+#container-available-on .product_delete span {font-size: 20px;}
+#container-available-on .product_delete a {color:rgba(245, 87, 83, 0.82)}
+#container-available-on .product_delete a:hover{color:rgb(255, 0, 0);}
+#container-available-on .plan :hover .product_delete{display: block;}
+#container-available-on .icon {width: 10px}
 
 .product_name{
 	font-size: 14px;

@@ -3,40 +3,156 @@
 
 $(document).ready(function () {
   'use strict';
-  var sunday;
-  var saturday;
+  $( document ).ajaxStart(function() {
+    $(".btn-pre").prop('disabled', true);
+    $(".btn-next").prop('disabled', true);
+  });
+  $( document ).ajaxStop(function() {
+    $(".btn-pre").prop('disabled', false);
+    $(".btn-next").prop('disabled', false);
+  });
+  var thisWeek=0;
+  var nextWeek=1;
+  var preWeek=-1;
+  var week=0;
+  if ($('#wrap_week_action').length>0){
+    updateAvailableOnPage(week);
 
-  var dayOfWeek= new Array(7);
-  var today = new Date();
+    $("body").on('click', '.a-product-delete', function()
+    {
+      var product_id = $(this).attr('data-id');
+      var serve_date = $(this).attr('data-date');
 
-	for (var index = 0; index < dayOfWeek.length; ++index) {
-		var date = new Date();
-		date.setDate(date.getDate()  - date.getDay() +index);
-		dayOfWeek[index] =date;
-    //console.log(dayOfWeek[index]);
-	}
+      DeleteDish(this,product_id,serve_date)
+    });
 
-	$(".dayofweek").text(DateFormat(dayOfWeek[0]) + "==>" +DateFormat(dayOfWeek[6]));
-	 var d = new Date();
-	LoadDishes(d);
+    $("body").on('click', '.btn-next', function()
+    {
+      week++;
+      checWeek(week);
+      $("#container-available-on").empty();
+      updateAvailableOnPage(week);
+    });
 
+    $("body").on('click', '.btn-pre', function()
+    {
+      week--;
+      checWeek(week); 
+      $("#container-available-on").empty();
+      updateAvailableOnPage(week);
+    });
+
+
+  }//end if #wrap_week_action
+
+ 	
 });
 
-function LoadDishes(serve_date){	
-	dish = GetDishByServeDate(serve_date)
- 	console.log(dish);
- 	//console.log(dish[0].images[0].mini_url);
+function checWeek(week){
+  if(week==1){
+    $(".center-bar-text").text("Next Week");
+    $(".btn-next").prop('disabled', true);
+    $(".btn-pre").prop('disabled', false);
+  }
+  else if(week==-1){
+    $(".center-bar-text").text("Last Week");
+    $(".btn-pre").prop('disabled', true);
+    $(".btn-next").prop('disabled', false);
+  }
+  else {
+    $(".center-bar-text").text("This Week");
+    $(".btn-pre").prop('disabled', false);
+    $(".btn-next").prop('disabled', false);
+  }
 }
-function GetDishByServeDate(serve_date)
+
+function updateAvailableOnPage(week){
+  var dayOfWeek= calculateWeeks(week); 
+  $(".dayofweek").text(DateFormat(dayOfWeek[0]) + "==>" +DateFormat(dayOfWeek[6]));
+  for (var i=0; i<dayOfWeek.length;i++)
+  {
+    $("#container-available-on").append(
+      "<div class='whole'>\
+        <div class='type day_"+i+"'>\
+          <p>"+getDay(i)+"</p>\
+        </div>\
+        <div class='plan date_"+i+"'>\
+        </div>\
+        <div class='dishpicker_"+i+"'>\
+        </div>\
+      </div>"
+    );
+    LoadDishes(dayOfWeek[i],i);
+  }
+}
+
+function calculateWeeks(week){
+  var dayOfWeek= new Array(7);
+  for (var index = 0; index < dayOfWeek.length; ++index) {
+    var date = new Date();
+    date.setDate(date.getDate()+7*week - date.getDay() +index);
+    dayOfWeek[index] =date;
+  }
+  return dayOfWeek;
+}
+
+function getDay(index){
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+    return weekday[index];
+}
+
+function DeleteDish(object,product_id,serve_date)
 {
-  var Url = Spree.routes.products_serve_date;
-  var result_data;
-  console.log(66666666666666);
-	console.log(serve_date);
+	var Url = Spree.routes.products_serve_date_delete;
   $.ajax(
   {
     url: Url,
-    async: false,
+    type: "delete",
+    data: 
+    {
+    	token: Spree.api_key,
+      serve_date: serve_date,
+      product_id: product_id
+    },
+    success: function(result)
+    {
+
+       $(object).parent().parent().slideUp();
+    },
+    error: function()
+    {
+    	alert("Something is wrong")
+    }
+  });
+}
+   
+
+function LoadDishes(serve_date,index)
+{
+  var Url = Spree.routes.products_serve_date;
+  var date =DateFormat(serve_date);
+
+  var name = ".dishpicker_"+index;
+  $(name).append(
+		    	"<form class='form-search' role='search'  method='get'  name='form-search' autocomplete='off'>\
+		    	  <div class='input-group' data-id='"+index+"'>\
+	          	<input type='text' class='form-control' name='q' id='q' type='text' placeholder='Choose the dish'>\
+	      		</div>\
+	      		<div class='search-result'id='search-result-" +index+"' data-date='"+date+"'  data-index='"+index+"'></div>\
+	      	</form>"
+	  	);
+  $.ajax(
+  {
+    url: Url,
+    type: "get",
     data: 
     {
     	token: Spree.api_key,
@@ -44,16 +160,28 @@ function GetDishByServeDate(serve_date)
     },
     success: function(result)
     {
-      //console.log(result);
-      result_data = result;
+      $.each(result.products, function(idx,dish) {
+        var divname = ".date_"+index;
+        var dish_name = dish.name.substring(0, 10);
+        $(divname).append(
+          "<div class='header' data-id="+dish.id+" data-date="+date+">\
+              <div class='product_delete'><a class='a-product-delete' data-id="+dish.id+" data-date="+date+"><span class='icon icon-delete'></span></a></div>\
+             <p class='product_name'>" +dish.dish_type + "</p>\
+            <div class='image'> <img src='"+ dish.images[0].product_url +"'</div>\
+            <p class='product_name'>"+dish.name+"</p>\
+          </div>"
+        );
+    	});
     },
     error: function()
     {
 
     }
-  });
 
-  return result_data;
+  });
+	
+
+    
 }
 function DateFormat(date)
 {

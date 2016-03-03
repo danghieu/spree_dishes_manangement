@@ -13,12 +13,7 @@ module Spree
 
       def load_data
         @products = Spree::Product.all
-        date = Date.today
-        puts "2222222222222222222222222222222222222222222222222222222222222222222222222222222222"
-        puts Date.beginning_of_week
-
-        puts "2222222222222222222222222222222222222222222222222222222222222222222222222222222222"
-
+        @today = Date.today
       end
 
       def location_after_save
