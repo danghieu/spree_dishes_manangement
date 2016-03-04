@@ -17,6 +17,8 @@
     <div class="form-actions" data-hook="buttons">
       <%= submit_tag 'Create', :class => "btn  btn-success" %>
       <%= submit_tag 'Create and Edit', name: 'create_and_add',  :class => "btn btn-primary"%>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), admin_dish_types_url, :icon => 'remove' %>
     </div>
   </fieldset>
 <% end %>
