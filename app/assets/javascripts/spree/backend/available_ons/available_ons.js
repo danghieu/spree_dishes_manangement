@@ -3,15 +3,16 @@
   var week=0;
 $(document).ready(function () {
   'use strict';
-  $( document ).ajaxStart(function() {
-    $(".btn-pre").prop('disabled', true);
-    $(".btn-next").prop('disabled', true);
-  });
-  $( document ).ajaxStop(function() {
-    checkWeek(week);
-  });
+  
 
   if ($('#wrap_week_action').length>0){
+    $( document ).ajaxStart(function() {
+      $(".btn-pre").prop('disabled', true);
+      $(".btn-next").prop('disabled', true);
+    });
+    $( document ).ajaxStop(function() {
+      checkWeek(week);
+    });
     updateAvailableOnPage(week);
 
     $("body").on('click', '.a-product-delete', function()

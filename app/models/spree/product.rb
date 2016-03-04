@@ -118,7 +118,7 @@ module Spree
              :allow_destroy => true
     accepts_nested_attributes_for :nutritions
 
-    has_many :comments, :class_name => "Dish::Comment"
+    has_many :comments,dependent: :destroy, :class_name => "Dish::Comment"
     has_many :users,
              :through => :comments
 

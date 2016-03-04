@@ -52,7 +52,8 @@ Spree::Core::Engine.routes.draw do
   namespace :api do
 		get    "products_serve_date" => "available_ons#serve_date"
 		delete "products_serve_date_delete" => "available_ons#serve_date_delete"
-		post   "products_search" => "products#search"
+    post   "products_search" => "products#search"
+		get   "products_get_all" => "products#get_all"
 		post   "products_available_on_create" => "available_ons#create"
   end
 

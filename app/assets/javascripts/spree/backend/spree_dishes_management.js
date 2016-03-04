@@ -6,7 +6,7 @@ Spree.routes.products_search= Spree.pathFor('api/products_search')
 Spree.routes.products_serve_date = Spree.pathFor('api/products_serve_date')
 Spree.routes.products_serve_date_delete = Spree.pathFor('api/products_serve_date_delete')
 Spree.routes.products_available_on_create = Spree.pathFor('api/products_available_on_create')
-
+Spree.routes.products_get_all= Spree.pathFor('api/products_get_all')
 $(document).ready(function () {
 if ($('input[type=checkbox]:checked').length ==0) { 
   $('.btn-delete').prop('disabled', true);
