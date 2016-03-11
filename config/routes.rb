@@ -2,6 +2,7 @@ Spree::Core::Engine.routes.draw do
 
   namespace :admin do
     resources :dish_types do
+      resources :dish_type_images
       collection do
         delete 'destroy_multiple'
       end

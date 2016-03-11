@@ -103,13 +103,12 @@ line-height: 52px;
 .search-result {
 	max-height: 200px;
     padding: 0 0 0 4px;
-    margin: 4px 4px 4px 0;
-    position: relative;
+    position: absolute;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
+.whole .search-result {width: 140px}
 .table-search :hover{cursor: pointer;}
 
 #container-available-on .header{

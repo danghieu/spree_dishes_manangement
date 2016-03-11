@@ -1,0 +1,16 @@
+
+<% content_for :sidebar do %>
+  <ul class="nav nav-pills nav-stacked" data-hook="admin_product_tabs">
+    <%= content_tag :li, class: ('active' if current == :details) do %>
+      <%= link_to_with_icon 'edit', Spree.t(:details), edit_admin_dish_type_url(@dish_type) %>
+    <% end if can?(:admin, Dish::DishType) %>
+
+    <%= content_tag :li, class: ('active' if current == :images) do %>
+      <%if @dish_type.images.any? %>
+        <%= link_to_with_icon 'picture', Spree.t(:images), admin_dish_type_dish_type_images_url(@dish_type) %>
+      <%else %>
+         <%= link_to_with_icon 'picture', Spree.t(:images), new_admin_dish_type_dish_type_image_url(@dish_type) %>
+      <% end %>
+    <% end if can?(:admin, Dish::DishType) %>
+  </ul>
+<% end %>

@@ -1,26 +1,25 @@
 $(document).ready(function () {
   'use strict';
-  if ($('#wrap_week_action').length>0){
-    var products = getAllDishes();
-    console.log(products);
-    $("body").on("click", function (event) {
+  $("body").on("click", function (event) {
       if(!$(event.target).closest('#q').length)
       {
-        for(var i = 0 ; i<7;i++){
-          $("#search-result-"+i).hide();
-        }
+        $(".search-result").hide();
       }
       
-    });
-
-    $("body").on('click', '#q', function()
+  });
+  $("body").on('click', '#q', function()
     {   
-        for(var i = 0 ; i<7;i++){
-          $("#search-result-"+i).hide();
-        }
+      $(".search-result").hide();
       var index = $(this).parent().attr('data-id');
       $("#search-result-"+index).show();
     });
+
+  if ($('#wrap_week_action').length>0){
+    var products = getAllDishes();
+    console.log(products);
+    
+
+    
 
   	$("body").on('keyup', '#q', function()
   	{	  
@@ -141,25 +140,6 @@ function updateSearchList(q,index) {
         });
         html += " </table>" ;
         $("#search-result-"+index).html(html);
-      }
-      if(result==null)
-        $("#search-result-"+index).html(html);
-      else
-      {
-
-      	var html ="<table class='table table-hover table-striped table-search'>";
-				$.each(result.products, function(idx,dish) {
-          var dish_image ;
-          if(dish.images[0]!=null)
-          dish_image=dish.images[0].product_url;
-          else dish_image="/assets/noimage/large.png";
-        html += "<tr class='product-select' data-id='"+dish.id+"'>\
-                  <td class ='product-image'><img src='"+ dish_image +"'></td>\
-                  <td class ='product-image'>"+dish.name+"</td>\
-                </tr>";
-      	});
-      	html += " </table>" ;
-      	$("#search-result-"+index).html(html);
       }
       
     },

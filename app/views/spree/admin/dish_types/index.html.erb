@@ -11,7 +11,8 @@
   <thead>
     <tr>
       <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger btn-delete',data: { confirm: "Are you sure?" } } %></th>
-      <th class="col-md-3"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_dish_types_listing_name_title'} %></th>
+      <th class="col-md-1">Image</th>
+      <th class="col-md-2"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_dish_types_listing_name_title'} %></th>
       <th class="col-md-4"><%= Spree.t(:description) %></th>
       <th class="col-md-1">Active</th> 
       <th class="col-md-2">Tools</th>
@@ -22,6 +23,11 @@
     <% @collection.each do |dish_type| %>
       <tr>
         <td ><%= check_box_tag "dish_types[]", dish_type.id %></td>
+         <% if dish_type.images.any? %>
+          <td class="align-center"><%= image_tag dish_type.images.first.attachment.url(:mini) %></td>
+        <% else %>
+          <td class="align-center"></td>
+        <% end %>
         <td><%= link_to dish_type.try(:name), edit_admin_dish_type_path(dish_type) %></td>
         <td ><%= truncate(dish_type.description, escape: false){ link_to " more",  edit_admin_dish_type_url(dish_type)}%></td>
         <td >

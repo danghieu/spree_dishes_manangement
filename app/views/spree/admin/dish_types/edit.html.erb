@@ -3,6 +3,7 @@
   / <%=@dish_type.name %>
 <% end 
 %>
+<%= render partial: 'spree/admin/shared/dish_type_tabs', locals: {current: :details} %>
 
 <%= form_for @dish_type, method: :put, :url => admin_dish_type_url(@dish_type), :html => {:id => "edit_dish_type", :multipart => true} do |f| %>
 	<fieldset data-hook="edit_dish_type">
