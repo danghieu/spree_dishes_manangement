@@ -44,7 +44,7 @@ $(document).ready(function () {
 
     if ($('#available-on-box').length>0){
       $("body").on('click', '.whole', function(ev) {
-        var box_id =3;
+        var box_id =$("#available-on-box").attr("data-id");;
         var serve_date = $(this).attr("data-date");
         $(".modal-header").text(serve_date); 
         var Url = Spree.routes.boxes_serve_date;

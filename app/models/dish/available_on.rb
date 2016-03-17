@@ -12,19 +12,31 @@ module Dish
       rules = Dish::Rule.all
       ps=[]
       products=[]
-      if nextWeek > max_d
-        rules.each do |rule|
-          ps = Spree::Product.where(dish_type_id: rule.dish_type_id).limit(rule.quantity)
-          ps.each do |p|
-            products<< p
-          end
+      rules.each do |rule|
+        ps = Spree::Product.where(dish_type_id: rule.dish_type_id).limit(rule.quantity)
+        ps.each do |p|
+          products<< p
         end
-        7.times.each do |i|
+      end
+      if max_d.nil?
+        21.times.each do |i|
           products.each do |p|
             a = Dish::AvailableOn.new
             a.product_id = p.id
-            a.delivery_date = nextWeek+7+i
+            a.delivery_date = monday-7+i
             a.save
+          end
+        end
+      else
+        if nextWeek > max_d
+         
+          7.times.each do |i|
+            products.each do |p|
+              a = Dish::AvailableOn.new
+              a.product_id = p.id
+              a.delivery_date = nextWeek+7+i
+              a.save
+            end
           end
         end
       end
