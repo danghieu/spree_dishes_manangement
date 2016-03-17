@@ -1,6 +1,13 @@
 Spree::Core::Engine.routes.draw do
 
+
   namespace :admin do
+    resources :rules do
+      collection do
+        put 'update_rules'
+      end
+    end
+
     resources :dish_types do
       resources :dish_type_images
       collection do
@@ -27,7 +34,7 @@ Spree::Core::Engine.routes.draw do
       end
     end
 
-
+    
     resources :nutritions do
       collection do
         delete 'destroy_multiple'

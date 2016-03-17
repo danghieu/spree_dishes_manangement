@@ -1,7 +1,7 @@
 object false
 child(@products => :products) do
   attributes :id, :name
-  node(:dish_type){ |p| p.dish_type.name if p.dish_type }
+	child(:dish_type => :dish_type){ extends "spree/api/dish_types/show" }
   child(:variant_images => :images) { extends "spree/api/images/show" }
 end
 
