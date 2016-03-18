@@ -21,3 +21,24 @@ $(' input[type=checkbox]').click(function(){
 	}
 });
 });
+
+function getData(Url,data,type){
+  var dataResult=false;
+  data["token"] =Spree.api_key ;
+  $.ajax(
+  {
+    url: Url,
+    type: type,
+    async: false,
+    data: data,
+    success: function(result)
+    {
+      dataResult=result;
+    },
+    error: function(result)
+    {
+        //alert(result);
+    }    
+  });
+  return dataResult;
+}

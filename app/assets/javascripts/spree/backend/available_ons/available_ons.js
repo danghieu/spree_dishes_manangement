@@ -74,7 +74,7 @@ $(document).ready(function () {
                         </div >\
                         <div id='elect-dish-"+ dish.dish_type.id+"' class='select-dish'>\
                           <form class='form-search' role='search'  method='get'  name='form-search' autocomplete='off'>\
-                            <div class='input-group' data-id='"+ dish.dish_type.id+"' style='width: 100%;'>\
+                            <div class='input-group' data-id='"+ dish.dish_type.id+"' data-date='"+serve_date+"' style='width: 100%;'>\
                               <input type='text' class='form-control' name='q' id='q' type='text' placeholder='Choose the dish'>\
                             </div>\
                             <div class='search-result' data-product-id-old='"+ dish.id+"' id='search-result-"+ dish.dish_type.id+"' data-box='"+box_id+"' data-date='"+serve_date+"' data-index='"+ dish.dish_type.id+"'>\
@@ -145,7 +145,7 @@ function updateAvailableOnPage(week){
   for (var i=1; i<dayOfWeek.length;i++)
   {
     $("#container-available-on").append(
-      "<div class='whole' data-date='"+DateFormat(dayOfWeek[i])+"'>\
+      "<div class='whole whole-box' data-date='"+DateFormat(dayOfWeek[i])+"'>\
         <div class='type day_"+i+"'>\
           <p>"+getDay(i)+"</p>\
         </div>\

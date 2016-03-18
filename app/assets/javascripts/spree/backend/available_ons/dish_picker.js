@@ -15,11 +15,6 @@ $(document).ready(function () {
     });
 
   if ($('#wrap_week_action').length>0){
-    var products = getAllDishes();
-    console.log(products);
-    
-
-    
 
   	$("body").on('keyup', '#q', function()
   	{	  
@@ -83,29 +78,7 @@ function addDish(product_id,delivery_date,index) {
     }
   });
 }
-function getAllDishes(){
-  Url = Spree.routes.products_get_all;
-  var dataResult=false;
-  $.ajax(
-  {
-    url: Url,
-    type: "get",
-    async: false,
-    data: 
-    {
-      token: Spree.api_key
-    },
-    success: function(result)
-    {
-      dataResult=result;
-    },
-    error: function(result)
-    {
-        alert(result);
-    }    
-  });
-  return dataResult;
-}
+
 
 function updateSearchList(q,index) {
   Url = Spree.routes.products_search;
@@ -159,7 +132,6 @@ function updateSearchList2(products,q,index) {
     if(dish.name.indexOf(q) > -1)
       ps=ps.push(dish);
    });
-   console.log(ps);
   if(products==null)
     $("#search-result-"+index).html(html);
   else
