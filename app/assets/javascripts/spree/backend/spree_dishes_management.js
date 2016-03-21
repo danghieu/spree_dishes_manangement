@@ -37,8 +37,13 @@ function getData(Url,data,type){
     },
     error: function(result)
     {
-        //alert(result);
-    }    
+      if (result.responseText != null) {
+      var a = JSON.parse(result.responseText);
+        if (a != null)
+          alert(a[0].messages);
+        }
+
+      }    
   });
   return dataResult;
 }

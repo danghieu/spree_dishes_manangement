@@ -109,7 +109,7 @@ line-height: 52px;
     overflow-y: auto;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-.whole .search-result {width: 140px}
+.whole .search-result {width: 170px}
 .table-search :hover{cursor: pointer;}
 
 #container-available-on .header{

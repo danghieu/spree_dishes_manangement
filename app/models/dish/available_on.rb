@@ -34,7 +34,7 @@ module Dish
             products.each do |p|
               a = Dish::AvailableOn.new
               a.product_id = p.id
-              a.delivery_date = nextWeek+7+i
+              a.delivery_date = nextWeek+i
               a.save
             end
           end
