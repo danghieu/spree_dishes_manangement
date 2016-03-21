@@ -47,9 +47,9 @@ $(document).ready(function () {
         var serve_date = $(this).attr("data-date");
         $(".modal-header").text(serve_date); 
         var Url = Spree.routes.boxes_serve_date;
-        type = "get";
-        data = {serve_date: serve_date};
-        result = getData(Url,data,type);
+        var type = "get";
+        var data = {serve_date: serve_date};
+        var result = getData(Url,data,type);
         var html = "<div class='form-group field col-md-12' id='box_dish_field'>";
         $.each(result.products, function(idx,dish) {
           var dish_image ;
