@@ -184,63 +184,90 @@ function LoadDishes(serve_date,index)
 
   var name = ".dishpicker_"+index;
   $(name).append(
-		    	"<form class='form-search' role='search'  method='get'  name='form-search' autocomplete='off'>\
-		    	  <div class='input-group' data-id='"+index+"'>\
-	          	<input type='text' class='form-control' name='q' id='q' type='text' placeholder='Choose the dish'>\
-	      		</div>\
-	      		<div class='search-result'id='search-result-" +index+"' data-date='"+date+"'  data-index='"+index+"'></div>\
-	      	</form>"
-	  	);
-  type= "get";
-  data= {serve_date: serve_date};
-  result= getData(Url,data,type);
-  $.each(result.products, function(idx,dish) {
-    var divname = ".date_"+index;
-    var dish_name = dish.name.substring(0, 10);
-    var dish_image ;
-    var dish_image ;
-    if(dish.images[0]!=null)
-    dish_image=dish.images[0].product_url;
-    else dish_image="/assets/noimage/large.png";
+          "<form class='form-search' role='search'  method='get'  name='form-search' autocomplete='off'>\
+            <div class='input-group' data-id='"+index+"'>\
+              <input type='text' class='form-control' name='q' id='q' type='text' placeholder='Choose the dish'>\
+            </div>\
+            <div class='search-result'id='search-result-" +index+"' data-date='"+date+"'  data-index='"+index+"'></div>\
+          </form>"
+      );
+  $.ajax(
+  {
+    url: Url,
+    type: "get",
+    data: 
+    {
+      token: Spree.api_key,
+      serve_date: serve_date
+    },
+    success: function(result)
+    {
+      $.each(result.products, function(idx,dish) {
+        var divname = ".date_"+index;
+        var dish_name = dish.name.substring(0, 10);
+        var dish_image ;
+        var dish_image ;
+          if(dish.images[0]!=null)
+          dish_image=dish.images[0].product_url;
+          else dish_image="/assets/noimage/large.png";
 
-    $(divname).append(
-      "<div class='header' data-id="+dish.id+" data-date="+date+">\
-          <div class='product_delete'><a class='a-product-delete' data-id="+dish.id+" data-date="+date+"><span class='icon icon-delete'></span></a></div>\
-         <p class='product_name'>" +dish.dish_type.name + "</p>\
-        <div class='image'> <img src='"+ dish_image +"'</div>\
-        <p class='product_name'>"+dish.name+"</p>\
-      </div>"
-    );
+        $(divname).append(
+          "<div class='header' data-id="+dish.id+" data-date="+date+">\
+              <div class='product_delete'><a class='a-product-delete' data-id="+dish.id+" data-date="+date+"><span class='icon icon-delete'></span></a></div>\
+             <p class='product_name'>" +dish.dish_type.name + "</p>\
+            <div class='image'> <img src='"+ dish_image +"'</div>\
+            <p class='product_name'>"+dish.name+"</p>\
+          </div>"
+        );
+      });
+    },
+    error: function()
+    {
+
+    }
+
   });
-   
 }
 
 function LoadBoxes(serve_date,index)
 {
   var Url = Spree.routes.boxes_serve_date;
   var date =DateFormat(serve_date);
-  type= "get";
-  data= 
-      {
-        serve_date: serve_date
-      };
-  result = getData(Url,data,type); 
-  $.each(result.products, function(idx,dish) {
-    var divname = ".date_"+index;
-    var dish_name = dish.name.substring(0, 10);
-    var dish_image ;
-      if(dish.images[0]!=null)
-      dish_image=dish.images[0].product_url;
-      else dish_image="/assets/noimage/large.png";
+  $.ajax(
+  {
+    url: Url,
+    type: "get",
+    data: 
+    {
+      token: Spree.api_key,
+      serve_date: serve_date
+    },
+    success: function(result)
+    {
+      $.each(result.products, function(idx,dish) {
+        var divname = ".date_"+index;
+        var dish_name = dish.name.substring(0, 10);
+        var dish_image ;
+        var dish_image ;
+          if(dish.images[0]!=null)
+          dish_image=dish.images[0].product_url;
+          else dish_image="/assets/noimage/large.png";
 
-    $(divname).append(
-      "<div class='header box-dish' id='box-dish-"+dish.id+"-"+date+"' data-id="+dish.id+" data-date="+date+">\
-         <p class='product_name'>" +dish.dish_type.name + "</p>\
-        <div class='image'> <img src='"+ dish_image +"'</div>\
-        <p class='product_name'>"+dish.name+"</p>\
-      </div>"
-    );
-  });  
+        $(divname).append(
+          "<div class='header box-dish' id='box-dish-"+dish.id+"-"+date+"' data-id="+dish.id+" data-date="+date+">\
+             <p class='product_name'>" +dish.dish_type.name + "</p>\
+            <div class='image'> <img src='"+ dish_image +"'</div>\
+            <p class='product_name'>"+dish.name+"</p>\
+          </div>"
+        );
+      });
+    },
+    error: function()
+    {
+
+    }
+
+  }); 
 }
 function DateFormat(date)
 {
