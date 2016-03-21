@@ -110,7 +110,7 @@ function updateAvailableOnPage(week){
   for (var i=1; i<dayOfWeek.length;i++)
   {
     $("#container-available-on").append(
-      "<div class='whole whole-box' data-date='"+DateFormat(dayOfWeek[i])+"'>\
+      "<div class='whole whole-box col-md-2' data-date='"+DateFormat(dayOfWeek[i])+"'>\
         <div class='type day_"+i+"'>\
           <p>"+getDay(i)+"</p>\
         </div>\
