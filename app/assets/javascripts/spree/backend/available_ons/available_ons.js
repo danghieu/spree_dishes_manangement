@@ -40,15 +40,15 @@ $(document).ready(function () {
       updateAvailableOnPage(week);
       
     });
-
-    if ($('#available-on-box').length>0){
+  }//end if #wrap_week_action
+  if ($('#available-on-box').length>0){
       $("body").on('click', '.whole', function(ev) {
         var box_id =$("#available-on-box").attr("data-id");;
         var serve_date = $(this).attr("data-date");
         $(".modal-header").text(serve_date); 
         var Url = Spree.routes.boxes_serve_date;
         var type = "get";
-        var data = {serve_date: serve_date};
+        var data = {serve_date: serve_date,box_id:box_id};
         var result = getData(Url,data,type);
         var html = "<div class='form-group field col-md-12' id='box_dish_field'>";
         $.each(result.products, function(idx,dish) {
@@ -68,7 +68,7 @@ $(document).ready(function () {
                         <div class='input-group' data-id='"+ dish.dish_type.id+"' data-date='"+serve_date+"' style='width: 100%;'>\
                           <input type='text' class='form-control' name='q' id='q' type='text' placeholder='Choose the dish'>\
                         </div>\
-                        <div class='search-result' data-product-id-old='"+ dish.id+"' id='search-result-"+ dish.dish_type.id+"' data-box='"+box_id+"' data-date='"+serve_date+"' data-index='"+ dish.dish_type.id+"'>\
+                        <div class='search-result' data-product-id-old='"+ dish.id+"' id='search-result-"+dish.dish_type.id+serve_date+"' data-box='"+box_id+"' data-date='"+serve_date+"' data-index='"+ dish.dish_type.id+"'>\
                         </div>\
                       </form>\
                     </div>\
@@ -80,9 +80,6 @@ $(document).ready(function () {
         $("#myModal").modal();
       });
     }
-
-  }//end if #wrap_week_action
-
  	
 });
 
@@ -233,6 +230,7 @@ function LoadBoxes(serve_date,index)
 {
   var Url = Spree.routes.boxes_serve_date;
   var date =DateFormat(serve_date);
+  var box_id =$("#available-on-box").attr("data-id");
   $.ajax(
   {
     url: Url,
@@ -240,14 +238,14 @@ function LoadBoxes(serve_date,index)
     data: 
     {
       token: Spree.api_key,
-      serve_date: serve_date
+      serve_date: serve_date,
+      box_id:box_id
     },
     success: function(result)
     {
       $.each(result.products, function(idx,dish) {
         var divname = ".date_"+index;
         var dish_name = dish.name.substring(0, 10);
-        var dish_image ;
         var dish_image ;
           if(dish.images[0]!=null)
           dish_image=dish.images[0].product_url;

@@ -21,21 +21,16 @@ module Dish
       if max_d.nil?
         21.times.each do |i|
           products.each do |p|
-            a = Dish::AvailableOn.new
-            a.product_id = p.id
-            a.delivery_date = monday-7+i
-            a.save
+            delivery_date = monday-7+i
+            Dish::AvailableOn.create(product_id: p.id,delivery_date: delivery_date)
           end
         end
       else
         if nextWeek > max_d
-         
           7.times.each do |i|
             products.each do |p|
-              a = Dish::AvailableOn.new
-              a.product_id = p.id
-              a.delivery_date = nextWeek+i
-              a.save
+              delivery_date = nextWeek+i
+              Dish::AvailableOn.create(product_id: p.id,delivery_date: delivery_date)
             end
           end
         end
