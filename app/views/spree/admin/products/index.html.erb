@@ -16,7 +16,7 @@
           <th class="col-md-2">Image</th>
           <th class="col-md-3"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_products_listing_name_title'} %></th>
           <th class="col-md-2"><%= sort_link @search,:dish_type_id, Spree.t(:type), {}, {:title => 'admin_products_listing_type_title'} %></th>
-          <th class=""><%= sort_link @search,:cost_price, Spree.t(:price), {}, {:title => 'admin_products_listing_price_title'} %>
+          <th class=""><%= sort_link @search,:price, Spree.t(:price), {}, {:title => 'admin_products_listing_price_title'} %>
           </th>
           <th data-hook="admin_products_index_header_actions" class="actions"></th>
         </tr>
@@ -28,7 +28,7 @@
               <td class="image"><%= mini_image product %></td>
               <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
               <td><%= link_to product.dish_type.try(:name), edit_admin_dish_type_path(product.dish_type.id) %></td>
-              <td ><%= number_to_currency(product.cost_price, :unit => product.cost_currency, precision: 0, seperator: ".", format: "%n %u") rescue '' %>
+              <td ><%= number_to_currency(product.price, :unit => product.cost_currency, precision: 0, seperator: ".", format: "%n %u") rescue '' %>
               </td>
               <td class="actions actions-3 text-right" data-hook="admin_products_index_row_actions">
                 <%= link_to_edit product, no_text: true, class: 'edit' if can?(:edit, product) && !product.deleted? %>
