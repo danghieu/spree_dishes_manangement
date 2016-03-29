@@ -28,7 +28,7 @@
               <td class="image"><%= mini_image product %></td>
               <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
               <td><%= link_to product.dish_type.try(:name), edit_admin_dish_type_path(product.dish_type.id) %></td>
-              <td ><%= number_to_currency(product.price, :unit => product.cost_currency, precision: 0, seperator: ".", format: "%n %u") rescue '' %>
+              <td ><%= number_to_currency(product.price, :unit => product.currency, precision: 0, seperator: ".", format: "%n %u") rescue '' %>
               </td>
               <td class="actions actions-3 text-right" data-hook="admin_products_index_row_actions">
                 <%= link_to_edit product, no_text: true, class: 'edit' if can?(:edit, product) && !product.deleted? %>
