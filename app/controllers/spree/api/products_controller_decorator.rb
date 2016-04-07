@@ -9,7 +9,7 @@ Spree::Api::ProductsController.class_eval do
   end
 
   def get_all   
-      @products = Spree::Product.all
+      @products = Spree::Product.dish_type.variant_images
       render "spree/api/available_ons/serve_date", status: 200
   end
 
