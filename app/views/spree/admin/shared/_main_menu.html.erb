@@ -18,7 +18,7 @@
 
 <% if can? :admin, Spree::Admin::ReportsController %>
   <ul class="nav nav-sidebar">
-    <%= tab *Spree::BackendConfiguration::REPORT_TABS, icon: 'file'  %>
+    <%= tab *Spree.t(:reports),  url: advanced_report_overview_admin_reports_path, icon: 'file'  %>
   </ul>
 <% end %>
 
