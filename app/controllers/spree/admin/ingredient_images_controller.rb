@@ -10,7 +10,8 @@ module Spree
         Dish::IngredientImage
       end
 
-      def edit
+      def show
+        redirect_to action: :edit
       end
 
       def new
@@ -23,7 +24,7 @@ module Spree
         end
 
         def location_after_save
-          admin_ingredient_ingredient_images_url(@ingredient)
+          edit_admin_ingredient_ingredient_image_url(@ingredient,@ingredient.images.first)
         end
 
         def load_data

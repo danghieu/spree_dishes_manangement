@@ -1,3 +1,7 @@
+[data-hook='thumbnail'] img {
+   width: 100px;
+}
+
 .dish {float: left;width: 100px;}
 .dish-wrap{ white-space: nowrap;overflow-x: scroll; overflow-y:hidden;max-height: 90px;  }
 .dish-wrap li { display:inline-block}

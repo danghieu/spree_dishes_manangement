@@ -10,19 +10,36 @@ Spree.routes.products_get_all= Spree.pathFor('api/products_get_all')
 Spree.routes.boxes_serve_date = Spree.pathFor('api/boxes_serve_date')
 
 $(document).ready(function () {
-if ($('input[type=checkbox]:checked').length ==0) { 
-  $('.btn-delete').prop('disabled', true);
-}
-$(' input[type=checkbox]').click(function(){
-	if ($('input[type=checkbox]:checked').length >0) { 
-	  $('.btn-delete').prop('disabled', false);
-	}
-	if ($('input[type=checkbox]:checked').length ==0) { 
-	  $('.btn-delete').prop('disabled', true);
-	}
-});
-});
+  if ($('input[type=checkbox]:checked').length ==0) { 
+    $('.btn-delete').prop('disabled', true);
+  }
+  $(' input[type=checkbox]').click(function(){
+  	if ($('input[type=checkbox]:checked').length >0) { 
+  	  $('.btn-delete').prop('disabled', false);
+  	}
+  	if ($('input[type=checkbox]:checked').length ==0) { 
+  	  $('.btn-delete').prop('disabled', true);
+  	}
+  });
+  
 
+  $("#image_attachment").change(function(){
+      readURL(this);
+  });
+
+});
+function readURL(input) {
+
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          $('[data-hook=thumbnail] img').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
 function getData(Url,data,type){
   var dataResult=false;
   data["token"] =Spree.api_key ;

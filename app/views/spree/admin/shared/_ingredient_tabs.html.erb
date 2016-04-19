@@ -5,7 +5,12 @@
       <%= link_to_with_icon 'edit', Spree.t(:details), edit_admin_ingredient_url(@ingredient) %>
     <% end if can?(:admin, Dish::Ingredient) %>
     <%= content_tag :li, class: ('active' if current == :images) do %>
-      <%= link_to_with_icon 'picture', Spree.t(:images), spree.admin_ingredient_ingredient_images_url(@ingredient) %>
+    	<%if @ingredient.images.any? %>
+	      <%= link_to_with_icon 'picture', Spree.t(:images), edit_admin_ingredient_ingredient_image_url(@ingredient,@ingredient.images.first) %>
+	    <%else %>
+	       <%= link_to_with_icon 'picture', Spree.t(:images), new_admin_ingredient_ingredient_image_url(@ingredient) %>
+	    <% end %>
+     
     <% end if can?(:admin, Dish::Ingredient) %>
   </ul>
 <% end %>
