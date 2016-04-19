@@ -138,8 +138,6 @@ module Spree
     self.whitelisted_ransackable_associations = %w[stores variants_including_master master variants]
     self.whitelisted_ransackable_attributes = %w[slug]
 
-    scope :dish_type, -> { includes(:dish_type) }
-    scope :variant_images, -> { includes(:variant_images) }
     # the master variant is not a member of the variants array
     def has_variants?
       variants.any?

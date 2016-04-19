@@ -9,7 +9,7 @@ module Spree
         else
           @available_on = Dish::AvailableOn.new(available_on_params)
           if @available_on.save!
-            @products = Spree::Product.find(available_on_params[:product_id]).variant_images.dish_type
+            @products = Spree::Product.find(available_on_params[:product_id])
             render "spree/api/available_ons/serve_date", status: 200
           else
             @status = [{ "messages" => "something is wrong"}]
@@ -22,7 +22,7 @@ module Spree
         if params[:serve_date]
           date = Date.parse(params[:serve_date])
           product_ids = Dish::AvailableOn.where(:delivery_date => date).pluck(:product_id)
-          @products = Spree::Product.where(:id => product_ids).variant_images.dish_type
+          @products = Spree::Product.where(:id => product_ids)
           render "spree/api/available_ons/serve_date", status: 200
         end
       end
