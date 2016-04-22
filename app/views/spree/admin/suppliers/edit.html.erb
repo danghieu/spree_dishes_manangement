@@ -1,0 +1,16 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:suppliers_list), admin_suppliers_url %>
+  / <%=@supplier.name %>
+<% end 
+%>
+
+<%= form_for @supplier, method: :put, :url => admin_supplier_url(@supplier), :html => {:id => "edit_supplier", :multipart => true} do |f| %>
+	<fieldset data-hook="edit_supplier">
+		<%= render :partial => 'form', :locals => { :f => f } %>
+		<div class="form-buttons filter-actions actions" data-hook="buttons">
+	        <%= button Spree.t('actions.update'), 'ok' %>
+	        <span class="or"><%= Spree.t(:or) %></span>
+	        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_suppliers_url, :class => 'button' %>
+	    </div>
+    </fieldset>
+<% end %>

@@ -1,0 +1,40 @@
+<%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @product } %>
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:products), admin_products_url %>
+  / New
+<% end 
+%>
+<%= form_for [:admin, @product], :html => { :multipart => true } do |f| %>
+  <fieldset data-hook="new_product" class = "">
+      <%= render partial: 'form', locals: { f: f } %>  
+      
+    <div class="form-actions" data-hook="buttons">
+      <%= submit_tag 'Create', :class => "btn  btn-success" %>
+      <%= submit_tag 'Create and Edit', name: 'create_and_add',  :class => "btn btn-primary"%>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), admin_dish_types_url, :icon => 'remove' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+  (function($){
+    var base_url = "<%= spree.admin_prototypes_url %>";
+    var prototype_select = $('#product_prototype_id');
+    prototype_select.change(function() {
+      var id = prototype_select.val();
+      if (id.length) {
+        var url = new Uri(base_url);
+        url.setPath(url.path() + '/' + id);
+        $('#product-from-prototype').load(url.toString());
+      } else {
+        $('#product-from-prototype').empty();
+      }
+    })
+    if (prototype_select.html() == "") {
+      prototype_select.change();
+    }
+  })(jQuery);
+//]]>
+</script>

@@ -1,0 +1,46 @@
+
+<%= render partial: 'spree/admin/shared/product_tabs', locals: {current: :ingredients} %>
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @product } %>
+
+<%= form_for @product, method: :put, :url => admin_product_url(@product), :html => {:id => "edit_product", :multipart => true} do |f| %>
+  <fieldset>
+    <div id='ingredients' data-hook>
+    <%= f.field_container :ingredient_ids, class: ['form-group'] do %>
+      <%= f.label :ingredient_ids, Spree.t(:ingredients) %><br>
+     <%= f.select :ingredient_ids, Dish::Ingredient.all.map { |p| ["#{p.name}","#{p.name}", p.id] }, {}, { multiple: true, class: "select2" } %>
+    <% end %>
+  </div>
+
+
+  	<div class="form-buttons filter-actions actions" data-hook="buttons">
+        <%= submit_tag 'Update', name: 'update_ingredient', :class => "btn  btn-success" %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_products_url, :class => 'button' %>
+	</div>
+
+  </fieldset>
+<% end %>
+<% if @product.ingredients.any? %>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-2">Image</th> 
+      <th class="col-md-6"><%= Spree.t(:name) %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @product.ingredients.each do |pi| %>
+      <tr>
+        <td >
+        <%if pi.images.any?%>
+          <%=mini_image pi %>
+        <%end%>
+        </td>
+        <td ><%= pi.name %> </td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%end%>

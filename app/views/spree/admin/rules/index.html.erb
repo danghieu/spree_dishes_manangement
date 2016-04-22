@@ -1,0 +1,36 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:rules) %>
+<% end %>
+
+
+<%= form_for :rule, :url => update_rules_admin_rules_url, :html => { :method => :put } do %>
+  <table class="table table-striped table-hover" >
+    <tr>
+      <th>Dish Type</th>
+      <th>quantity</th>
+    </tr>
+    <% @rules.each do |rule| %>
+      <%= fields_for "rule[]", rule do |rule_fields| %>
+        <tr>
+          <%= rule_fields.hidden_field :id %>
+          <td><%= rule_fields.object.dish_type.name %></td>
+          <td><%= rule_fields.text_field :quantity %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <div class="form-buttons filter-actions actions" data-hook="buttons">
+    <%= submit_tag 'Update', name: 'update', :class => "btn  btn-success" %>
+    <span class="or"><%= Spree.t(:or) %></span>
+    <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_rules_url, :class => 'button' %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+   
+  $(".btn-delete-rule").click(function() {
+    alert("Can not delete this rule! Because it is used with some rule. If you want to delete it, please delete the rule before!");
+  });
+</script>

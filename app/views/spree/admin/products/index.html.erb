@@ -1,0 +1,50 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:products) %>
+<% end %>
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_product), new_admin_product_url, { :class => "btn-success", :icon => 'plus', :id => 'admin_new_product' } %>
+<% end if can?(:create, Spree::Product) %>
+
+
+<%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>  
+<%= form_tag destroy_multiple_admin_products_url, method: :delete do %>
+  <% if @collection.any? %>
+    <table class="table" id="listing_products">
+      <thead>
+        <tr data-hook="admin_products_index_headers">
+        <th class="col-md-1"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger btn-delete',data: { confirm: "Are you sure?" } }%></th>
+          <th class="col-md-2">Image</th>
+          <th class="col-md-3"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_products_listing_name_title'} %></th>
+          <th class="col-md-2"><%= sort_link @search,:dish_type_id, Spree.t(:type), {}, {:title => 'admin_products_listing_type_title'} %></th>
+          <th class=""><%= sort_link @search,:price, Spree.t(:price), {}, {:title => 'admin_products_listing_price_title'} %>
+          </th>
+          <th data-hook="admin_products_index_header_actions" class="actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @collection.each do |product| %>
+            <tr <%== "style='color: red;'" if product.deleted? %> id="<%= spree_dom_id product %>" data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
+              <td ><%= check_box_tag "products[]", product.id %></td>
+              <td class="image"><%= mini_image product %></td>
+              <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
+              <td><%= link_to product.dish_type.try(:name), edit_admin_dish_type_path(product.dish_type.id) %></td>
+              <td ><%= number_to_currency(product.price, :unit => product.currency, precision: 0, seperator: ".", format: "%n %u") rescue '' %>
+              </td>
+              <td class="actions actions-3 text-right" data-hook="admin_products_index_row_actions">
+                <%= link_to_edit product, no_text: true, class: 'edit' if can?(:edit, product) && !product.deleted? %>
+                <%= link_to_delete product, no_text: true if can?(:delete, product) && !product.deleted? %>
+              </td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info no-objects-found">
+      <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Product)) %>,
+      <%= link_to Spree.t(:add_one), new_object_url %>!
+    </div>
+  <% end %>
+<% end %>
+<%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
+
+

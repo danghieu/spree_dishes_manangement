@@ -1,0 +1,61 @@
+
+<%= render :partial => 'spree/admin/shared/product_tabs', :locals => {:current => 'Nutritions'} %>
+
+<%= render 'spree/shared/error_messages', :target => @product %>
+
+<%= form_for @product, :url => admin_product_url(@product), :method => :put do |f| %>
+  <fieldset class="no-border-top">
+
+    <div class="add_product_nutritions" data-hook="add_product_nutritions"></div>
+
+  <div id='nutritions' data-hook>
+        <%= f.field_container :nutrition_ids, class: ['form-group'] do %>
+          <%= f.label :nutrition_ids, Spree.t(:nutrition) %><br>
+          <%= f.select :nutrition_ids, Dish::Nutrition.all.map { |p| ["(#{p.name})","(#{p.name})", p.id] }, {}, { multiple: true, class: "select2" } %>
+        <% end %>
+      </div>
+
+  <div class="form-buttons filter-actions actions" data-hook="buttons">
+    <%= submit_tag 'Update', name: 'update_nutrition', :class => "btn  btn-success" %>
+    <span class="or"><%= Spree.t(:or) %></span>
+    <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_products_url, :class => 'button' %>
+  </div>
+
+  </fieldset>
+
+<% end %>
+
+<%= form_for @product, :url => admin_product_url(@product), :method => :put do |f| %>
+  <fieldset class="no-border-top">
+
+    <div class="add_product_nutritions" data-hook="add_product_nutritions"></div>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><%=Spree.t(:name)%></th>
+          <th><%=Spree.t(:quantity)%></th>
+          <th><%=Spree.t(:unit)%></th>
+        </tr>
+      </thead>
+
+      <tbody id="product_nutritions" data-hook>
+        
+        <%= f.fields_for :products_nutritions do |ff| %>
+          <%= render 'product_nutrition_fields', :f => ff %>
+        <% end %>
+      
+      </tbody>
+
+    </table>
+
+  <div class="form-buttons filter-actions actions" data-hook="buttons">
+    <%= submit_tag 'Update', name: 'update_nutrition', :class => "btn  btn-success" %>
+    <span class="or"><%= Spree.t(:or) %></span>
+    <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_products_url, :class => 'button' %>
+  </div>
+
+  </fieldset>
+
+<% end %>
+

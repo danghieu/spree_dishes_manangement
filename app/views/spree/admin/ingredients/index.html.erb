@@ -1,0 +1,61 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:ingredients) %>
+<% end %>
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_ingredient), new_admin_ingredient_url, { :class => "btn-success ", :icon => 'plus', :id => 'admin_new_ingredient' } %>
+<% end if can?(:create, Dish::Ingredient) %>
+<%= form_tag destroy_multiple_admin_ingredients_url, method: :delete do %>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-2"><%= button Spree.t('actions.delete'), 'delete', 'submit', {class: 'btn-danger btn-delete',data: { confirm: "Are you sure?" }} %></th>
+      <th>Image</th>
+      <th class="col-md-4"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_ingredients_listing_name_title'} %></th>
+
+      <th class="col-md-4"><%= Spree.t(:description) %></th>
+      <th class="col-md-2">Tools</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ingredients.each do |ingredient| %>
+      <%= ingredient.errors.get(:base) %>
+      <tr>
+        <td >
+          <%if ingredient.can_be_deleted? %>
+          <%= check_box_tag "ingredients[]", ingredient.id %></td>
+          <%else %>
+          <%= check_box_tag "ingredients[]", ingredient.id, false, disabled: true %></td>
+          <%end %>
+        <% if ingredient.images.any? %>
+          <td class="align-center"><%= image_tag ingredient.images.first.attachment.url(:mini) %></td>
+        <% else %>
+          <td class="align-center"></td>
+        <% end %>
+        <td><%= link_to ingredient.try(:name), edit_admin_ingredient_path(ingredient) %></td>
+        <td ><%= truncate(ingredient.description, escape: false){ link_to " more",  edit_admin_ingredient_url(ingredient)}%></td>
+        <td class="actions" data-hook="admin_products_index_row_actions">
+            <%= link_to_edit ingredient, :no_text => true, :class => 'edit' if can?(:edit, ingredient) %>
+            &nbsp;
+            <%if ingredient.can_be_deleted? %>
+            <%= link_to_delete ingredient, :no_text => true, :class => 'delete' if can?(:delete, ingredient) %>
+            <%else %>
+
+            <a class="btn btn-danger btn-sm icon-link with-tip btn-delete-ingredient">
+              <span class="icon icon-delete"></span> 
+            </a>
+            <%end %>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
+
+<script type="text/javascript">
+   
+  $(".btn-delete-ingredient").click(function() {
+    alert("Can not delete this Ingredient! Because it is used with some product. If you want to delete it, please delete the product before!");
+  });
+</script>
