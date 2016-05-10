@@ -4,6 +4,7 @@
 <% content_for :page_actions do %>
   <%= button_link_to Spree.t(:new_product), new_admin_product_url, { :class => "btn-success", :icon => 'plus', :id => 'admin_new_product' } %>
 <% end if can?(:create, Spree::Product) %>
+<<<<<<< HEAD
 <% content_for :table_filter do %>
   <div data-hook="admin_products_sidebar">
 
@@ -33,6 +34,9 @@
 
   </div>
 <% end %>
+=======
+
+>>>>>>> 3755406cd0c0fc6933c98f33950bb54198b8138d
 
 <%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>  
 <%= form_tag destroy_multiple_admin_products_url, method: :delete do %>
