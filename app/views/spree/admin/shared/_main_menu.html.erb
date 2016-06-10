@@ -22,11 +22,11 @@
   </ul>
 <% end %>
 
-<% if can? :admin, Spree::Promotion %>
+<% if can? :index, Spree::Shipment %>
   <ul class="nav nav-sidebar">
-    <%= main_menu_tree Spree.t(:promotions), icon: "gift", sub_menu: "promotion", url: "#sidebar-promotions" %>
+     <%= tab :shipments, label: Spree.t(:shipments), match_path: '/shipments', icon: 'plane' %>
   </ul>
-<% end %>
+<% end %> 
 
 <% if Spree.user_class && can?(:admin, Spree.user_class) %>
   <ul class="nav nav-sidebar">
